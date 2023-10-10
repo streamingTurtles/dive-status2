@@ -57,7 +57,12 @@ SELECT
   NOW() - ('1 day'::INTERVAL*random_between(1, 1000)),
   random_between(1, 720),
   random_between(1, 5),
-  random_between(1, 50)
+  random_between(1, 50) /* NOTE: there are 55 actual locations, but here you will
+  only be generating up to the 50th location - so in the query in section (2.3.4)
+  you will only get 50 location_id - if we make this a 55, then we will 
+  see all 55 locations in the GROUP BY location_id query output.
+  Basically, the last 51-55 locations are not randomly generated in this
+  seeding of data  */
 FROM generate_series(1, 1000);
 
 

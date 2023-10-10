@@ -52,10 +52,14 @@ CREATE TABLE dives (
   location_id INTEGER NOT NULL REFERENCES locations(id) ON DELETE CASCADE
 );
 
+/* (2.3.8) implementing indexes for efficiency */
+CREATE INDEX diver_index ON dives (diver_id);
+CREATE INDEX location_index ON dives (location_id);
 
 CREATE FUNCTION random_between(low INT, high INT)
 RETURNS INT AS $$
 BEGIN
   RETURN FLOOR(RANDOM() * (high - low + 1) + low);
 END;
+
 $$ LANGUAGE plpgsql;
